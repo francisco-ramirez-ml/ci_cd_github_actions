@@ -31,7 +31,7 @@ jobs:
           mkdir -p deploy
           pwd
           ls -l
-          cp -r * ~/deploy
+          cp -r * deploy
           tar -czf flask_app.tar.gz -C deploy .
                   
       - name: Deploy to dev server
