@@ -28,7 +28,7 @@ jobs:
 
       - name: compress files into tar.gz artifact
         run: |
-          mkdir deploy
+          mkdir -p deploy
           pwd
           ls -l
           cp -r * ~/deploy
