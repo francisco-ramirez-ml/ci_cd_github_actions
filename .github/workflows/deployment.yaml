@@ -28,9 +28,9 @@ jobs:
 
       - name: compress files into tar.gz artifact
         run: |
-          mkdir -p deploy
-          cp -r !(deploy) deploy
-          tar -czf flask_app.tar.gz -C deploy .
+          mkdir -p ../deploy
+          cp -r . ../deploy
+          tar -czf flask_app.tar.gz -C ../deploy .
                   
       - name: Deploy to dev server
         if: github.ref == 'refs/heads/dev'
