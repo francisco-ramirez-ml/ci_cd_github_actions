@@ -29,7 +29,7 @@ jobs:
       - name: compress files into tar.gz artifact
         run: |
           mkdir -p deploy
-          cp -r * !(deploy) deploy
+          cp -r !(deploy) deploy/
           tar -czf flask_app.tar.gz -C deploy .
                   
       - name: Deploy to dev server
