@@ -42,10 +42,10 @@ jobs:
           echo "**RUNNING DEV BRANCH DEPLOYMENT**"
           echo "$SSH_PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
-          ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$SERVER << EOF
+          ssh -o StrictHostKeyChecking=no -i private_key.pem "$USER"@"$SERVER" << EOF
             pkill -f "flask run" || true
-            mkdir -p ~/flask_app
             rm -rf ~/flask_app/*
+            mkdir -p ~/flask_app
           EOF
           scp -o StrictHostKeyChecking=no -i private_key.pem flask_app.tar.gz $USER@$SERVER:~/
           ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$SERVER << 'EOF'
