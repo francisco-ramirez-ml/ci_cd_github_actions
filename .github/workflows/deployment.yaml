@@ -40,6 +40,7 @@ jobs:
           USER: ${{ secrets.DEV_USER}}
         run: |
           echo "**RUNNING DEV BRANCH DEPLOYMENT**"
+          echo $SERVER
 
           
         continue-on-error: false
