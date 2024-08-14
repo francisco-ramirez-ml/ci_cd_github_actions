@@ -57,7 +57,7 @@ jobs:
             pip install -r requirements.txt
             nohup flask run --host=0.0.0.0 --port=8080 > log.txt 2>&1 &
           EOF
-        continue-on-error: true
+        continue-on-error: false
 
       - name: Deploy to test server
         if: github.ref == 'refs/heads/test'
