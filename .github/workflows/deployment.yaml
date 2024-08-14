@@ -42,22 +42,10 @@ jobs:
           echo "**RUNNING DEV BRANCH DEPLOYMENT**"
           echo "$SSH_PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
-          ssh -o StrictHostKeyChecking=no -i private_key.pem $DEV_USER@$DEV_SERVER << EOF
-            pkill -f "flask run" || true
-            rm -rf ~/flask_app/*
-            mkdir -p ~/flask_app
+          ssh $DEV_USER@$DEV_SERVER << 'EOF'
+            echo 'success'
           EOF
-          scp -o StrictHostKeyChecking=no -i private_key.pem flask_app.tar.gz $DEV_USER@$DEV_SERVER:~/
-          ssh -o StrictHostKeyChecking=no -i private_key.pem $DEV_USER@$DEV_SERVER << 'EOF'
-            mkdir -p ~/flask_app
-            tar -xzf flask_app.tar.gz -C ~/flask_app
-            rm flask_app.tar.gz
-            cd ~/flask_app
-            python3 -m venv venv
-            source venv/bin/activate
-            pip install -r requirements.txt
-            nohup flask run --host=0.0.0.0 --port=8080 > log.txt 2>&1 &
-          EOF
+          
         continue-on-error: false
 
       - name: Deploy to test server
