@@ -33,14 +33,17 @@ jobs:
           cp -r . ../deploy
           tar -czf flask_app.tar.gz -C ../deploy .
                   
-      - name: Deploy artifact through ssh
-        uses: appleboy/ssh-action@v1.0.3
+      - name: Deploy to dev server
         if: github.ref == 'refs/heads/dev'
-        with:
-          host: ${{ secrets.DEV_SERVER }}
-          username: ${{ secrets.DEV_USER}}
-          key: ${{ secrets.DEV_SSH_PRIVATE_KEY }}
-          debug: true
-          script: |
-            echo "**RUNNING DEV BRANCH DEPLOYMENT**"
-            lsof -ti tcp:8080
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEV_SSH_PRIVATE_KEY }}
+          SERVER: ${{ secrets.DEV_SERVER }}
+          USER: ${{ secrets.DEV_USER}}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key.pem
+          chmod 600 private_key.pem
+          ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$SERVER << 'EOF'
+            pkill -f "flask run" || true
+            mkdir -p ~/flask_app
+            rm -rf ~/flask_app/*
+          EOF
