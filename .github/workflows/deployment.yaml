@@ -45,10 +45,5 @@ jobs:
           script: |
             echo "**RUNNING DEV BRANCH DEPLOYMENT**"
             pid=$(lsof -ti tcp:8080)
-            if [[ $pid ]]; then
-              echo "**Terminating Flask**"
-              kill -9 $pid
-            else
-              echo "**Flask was not running**"
-            fi
+
         continue-on-error: false
