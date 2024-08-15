@@ -52,7 +52,4 @@ jobs:
             else
               echo "**Flask was not running**"
             fi
-            rm -rf /home/ec2-user/flask_app/*
-            echo "**create app folder**"
-            mkdir -p /home/ec2-user/flask_app
-        continue-on-error: true
+        continue-on-error: false
