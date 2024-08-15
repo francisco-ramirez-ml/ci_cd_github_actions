@@ -53,4 +53,4 @@ jobs:
             rm -rf ~/flask_app/*
             echo "**create app folder**"
             mkdir -p ~/flask_app
-        continue-on-error: false
+        continue-on-error: true
