@@ -43,9 +43,12 @@ jobs:
           script_stop: true
           script: |
             echo "**RUNNING DEV BRANCH DEPLOYMENT**"
-            echo "**Stop flask process**"
             # Look for Flask in port 8080 
-            pkill -f "flask run" || true
+            pid=$(lsof -ti tcp:8080)
+            if [[ $pid ]]; then
+              echo "**Terminating Flask"
+              kill -9 $pid
+            fi
             rm -rf ~/flask_app/*
             echo "**create app folder**"
             mkdir -p ~/flask_app
