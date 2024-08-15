@@ -45,13 +45,7 @@ jobs:
             echo "**RUNNING DEV BRANCH DEPLOYMENT**"
             echo "**Stop flask process**"
             # Look for Flask in port 8080 
-            if lsof -i :8080 > /dev/null
-            then
-                kill $(lsof -t -i :8080)
-                echo "**Flask running on port 8080 has been killed.**"
-            else
-                echo "**Flask is not currently running**"
-            fi
+            pkill -f "flask run" || true
             rm -rf ~/flask_app/*
             echo "**create app folder**"
             mkdir -p ~/flask_app
