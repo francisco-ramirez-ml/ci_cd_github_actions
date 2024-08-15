@@ -43,7 +43,18 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
           ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$SERVER << 'EOF'
-            pkill -f "flask run" || true
-            mkdir -p ~/flask_app
-            rm -rf ~/flask_app/*
+          pkill -f "flask run" || true
+          mkdir -p ~/flask_app
+          rm -rf ~/flask_app/*
           EOF
+          scp -o StrictHostKeyChecking=no -i private_key.pem flask_app.tar.gz $USER@$SERVER:~/
+          ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$SERVER << 'EOF'
+            tar -xzf flask_app.tar.gz -C ~/flask_app
+            rm flask_app.tar.gz
+            cd ~/flask_app
+            python3 -m venv venv
+            source venv/bin/activate
+            pip install -r requirements.txt
+            nohup flask run --host=0.0.0.0 > log.txt 2>&1 &
+          EOF
+        continue-on-error: true
