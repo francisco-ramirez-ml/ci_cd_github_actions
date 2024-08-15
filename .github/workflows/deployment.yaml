@@ -44,6 +44,3 @@ jobs:
           debug: true
           script: |
             echo "**RUNNING DEV BRANCH DEPLOYMENT**"
-            pid=$(lsof -ti tcp:8080)
-
-        continue-on-error: false
