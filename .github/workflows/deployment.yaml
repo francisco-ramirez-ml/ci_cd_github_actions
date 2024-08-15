@@ -44,7 +44,6 @@ jobs:
           script: |
             echo "**RUNNING DEV BRANCH DEPLOYMENT**"
             echo "**Stop flask process**"
-            kill $(lsof -t -i:${PORT})
             # Look for Flask in port 8080 
             if lsof -i :8080 > /dev/null
             then
