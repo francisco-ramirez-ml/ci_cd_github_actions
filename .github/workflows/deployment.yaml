@@ -47,10 +47,12 @@ jobs:
             # Look for Flask in port 8080 
             pid=$(lsof -ti tcp:8080)
             if [[ $pid ]]; then
-              echo "**Terminating Flask"
+              echo "**Terminating Flask**"
               kill -9 $pid
+            else
+              echo "**Flask was not running**"
             fi
-            rm -rf ~/flask_app/*
+            rm -rf /home/ec2-user/flask_app/*
             echo "**create app folder**"
-            mkdir -p ~/flask_app
+            mkdir -p /home/ec2-user/flask_app
         continue-on-error: true
