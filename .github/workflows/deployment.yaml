@@ -40,7 +40,6 @@ jobs:
           host: ${{ secrets.DEV_SERVER }}
           username: ${{ secrets.DEV_USER}}
           key: ${{ secrets.DEV_SSH_PRIVATE_KEY }}
-          script_stop: true
           debug: true
           script: |
             echo "**RUNNING DEV BRANCH DEPLOYMENT**"
